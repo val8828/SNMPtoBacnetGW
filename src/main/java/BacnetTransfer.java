@@ -21,7 +21,7 @@ public class BacnetTransfer extends Thread {
         this.snmp = snmpI;
         try {
 
-            String hostAddress = "10.2.0.64";
+            String hostAddress = "10.3.0.77";
             String macAddress = "00:0C:29:FF:09:4C";
             String[] macAddressParts = macAddress.split(":");
 

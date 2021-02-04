@@ -196,19 +196,21 @@ public class EatonUPS implements CanSendSNMP {
             // Process Agent Response
             if (response != null) {
                 PDU responsePDU = response.getResponse();
-                //Extract boolean value from OctetString
-                bacnetDataMap.get(1).setPresentValue(new UnsignedInteger(responsePDU.getVariableBindings().get(0).getVariable().toInt()));
-                bacnetDataMap.get(2).setPresentValue(new Real(responsePDU.getVariableBindings().get(1).getVariable().toInt()));
-                bacnetDataMap.get(3).setPresentValue(new Real(responsePDU.getVariableBindings().get(2).getVariable().toInt()));
-                bacnetDataMap.get(4).setPresentValue(new Real(responsePDU.getVariableBindings().get(3).getVariable().toInt()));
-                bacnetDataMap.get(5).setPresentValue(new Real(responsePDU.getVariableBindings().get(4).getVariable().toInt()));
-                bacnetDataMap.get(6).setPresentValue(new UnsignedInteger(responsePDU.getVariableBindings().get(5).getVariable().toInt()));
-                bacnetDataMap.get(7).setPresentValue((responsePDU.getVariableBindings().get(0).getVariable().toInt() == 5) ? BinaryPV.active : BinaryPV.inactive);
-                bacnetDataMap.get(8).setPresentValue((responsePDU.getVariableBindings().get(0).getVariable().toInt() == 3) ? BinaryPV.active : BinaryPV.inactive);
-                bacnetDataMap.get(9).setPresentValue((responsePDU.getVariableBindings().get(0).getVariable().toInt() == 4) ? BinaryPV.active : BinaryPV.inactive);
-                bacnetDataMap.get(10).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(6).getVariable().toString()));
-                bacnetDataMap.get(11).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(7).getVariable().toString()));
-                bacnetDataMap.get(12).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(8).getVariable().toString()));
+                if(responsePDU != null){
+                    //Extract boolean value from OctetString
+                    bacnetDataMap.get(1).setPresentValue(new UnsignedInteger(responsePDU.getVariableBindings().get(0).getVariable().toInt()));
+                    bacnetDataMap.get(2).setPresentValue(new Real(responsePDU.getVariableBindings().get(1).getVariable().toInt()));
+                    bacnetDataMap.get(3).setPresentValue(new Real(responsePDU.getVariableBindings().get(2).getVariable().toInt()));
+                    bacnetDataMap.get(4).setPresentValue(new Real(responsePDU.getVariableBindings().get(3).getVariable().toInt()));
+                    bacnetDataMap.get(5).setPresentValue(new Real(responsePDU.getVariableBindings().get(4).getVariable().toInt()));
+                    bacnetDataMap.get(6).setPresentValue(new UnsignedInteger(responsePDU.getVariableBindings().get(5).getVariable().toInt()));
+                    bacnetDataMap.get(7).setPresentValue((responsePDU.getVariableBindings().get(0).getVariable().toInt() == 5) ? BinaryPV.active : BinaryPV.inactive);
+                    bacnetDataMap.get(8).setPresentValue((responsePDU.getVariableBindings().get(0).getVariable().toInt() == 3) ? BinaryPV.active : BinaryPV.inactive);
+                    bacnetDataMap.get(9).setPresentValue((responsePDU.getVariableBindings().get(0).getVariable().toInt() == 4) ? BinaryPV.active : BinaryPV.inactive);
+                    bacnetDataMap.get(10).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(6).getVariable().toString()));
+                    bacnetDataMap.get(11).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(7).getVariable().toString()));
+                    bacnetDataMap.get(12).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(8).getVariable().toString()));
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

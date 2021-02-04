@@ -643,20 +643,22 @@ public class ApcGalaxy7000UPS implements CanSendSNMP{
             // Process Agent Response
             if (response != null) {
                 PDU responsePDU = response.getResponse();
-                //Extract boolean value from OctetString
-                for(int i=0;i<60;i++){
-                    if (i<=bacnetDataMap.size() && bacnetDataMap.get(i+1)!= null) {
-                        Character currentCharacter = responsePDU.getVariableBindings().get(0).getVariable().toString().charAt(i);
-                        bacnetDataMap.get(i+1).setPresentValue(currentCharacter.equals('1') ? BinaryPV.active : BinaryPV.inactive);
+                if(responsePDU != null) {
+                    //Extract boolean value from OctetString
+                    for(int i=0;i<60;i++){
+                        if (i<=bacnetDataMap.size() && bacnetDataMap.get(i+1)!= null) {
+                            Character currentCharacter = responsePDU.getVariableBindings().get(0).getVariable().toString().charAt(i);
+                            bacnetDataMap.get(i+1).setPresentValue(currentCharacter.equals('1') ? BinaryPV.active : BinaryPV.inactive);
+                        }
                     }
+                    bacnetDataMap.get(61).setPresentValue(new Real(responsePDU.getVariableBindings().get(1).getVariable().toInt()));
+                    bacnetDataMap.get(62).setPresentValue(new Real(responsePDU.getVariableBindings().get(2).getVariable().toInt()));
+                    bacnetDataMap.get(63).setPresentValue(new Real(responsePDU.getVariableBindings().get(3).getVariable().toInt()));
+                    bacnetDataMap.get(64).setPresentValue(new UnsignedInteger(responsePDU.getVariableBindings().get(4).getVariable().toInt()));
+                    bacnetDataMap.get(65).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(5).getVariable().toString()));
+                    bacnetDataMap.get(66).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(6).getVariable().toString()));
+                    bacnetDataMap.get(67).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(7).getVariable().toString()));
                 }
-                bacnetDataMap.get(61).setPresentValue(new Real(responsePDU.getVariableBindings().get(1).getVariable().toInt()));
-                bacnetDataMap.get(62).setPresentValue(new Real(responsePDU.getVariableBindings().get(2).getVariable().toInt()));
-                bacnetDataMap.get(63).setPresentValue(new Real(responsePDU.getVariableBindings().get(3).getVariable().toInt()));
-                bacnetDataMap.get(64).setPresentValue(new UnsignedInteger(responsePDU.getVariableBindings().get(4).getVariable().toInt()));
-                bacnetDataMap.get(65).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(5).getVariable().toString()));
-                bacnetDataMap.get(66).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(6).getVariable().toString()));
-                bacnetDataMap.get(67).setPresentValue(new CharacterString(responsePDU.getVariableBindings().get(7).getVariable().toString()));
             }
             } catch (IOException e) {
             e.printStackTrace();
